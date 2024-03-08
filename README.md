@@ -7,3 +7,6 @@
  
 # Colocando README.md dentro de src
 * Situação de todas as pastas Untracked
+
+# Criação das migrations com knex
+ *Foi criado a tabela de "users" e "books",além da chave ja ter sido adicionada
