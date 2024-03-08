@@ -5,7 +5,7 @@ class UserController {
       const {name,email,telefone,created_at} = req.body
       const user = await knex("users").insert({name,email,telefone,created_at})
 
-      res.status("Usuário cadastrado com sucesso")
+     return res.status(200).json("Usuário cadastrado com sucesso")
     }
 }
 module.exports = UserController
