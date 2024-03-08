@@ -1,15 +1,15 @@
 const {Router} = require ("express")
 const UserController = require("../controller/UserController")
-
+const CheckUserExist = require("../middlewares/CheckUserExist")
 const usersRoutes =  Router()
 
 const userController = new UserController
 
 usersRoutes.post("/user", userController.createUser)
 usersRoutes.get("/user", userController.listUser)
-usersRoutes.patch("/user/:idUsers",userController.updateUser)
-usersRoutes.delete("/user/:idUsers",userController.deleteUser)
-usersRoutes.get("/user/:idUsers",userController.listUserById)
+usersRoutes.patch("/user/:idUsers",CheckUserExist,userController.updateUser)
+usersRoutes.delete("/user/:idUsers",CheckUserExist,userController.deleteUser)
+usersRoutes.get("/user/:idUsers",CheckUserExist,userController.listUserById)
 
 
 
