@@ -11,11 +11,24 @@ class UserController {
       const user =  await knex("users")
       return res.status(200).json(user)
     }
-    async deleteUser(req,res){
-      const {user_id} = req.params
-      await knex("users").where({id:user_id}).delete()
-      return res.status(200).json("Usuario deletado da existencia")
+    async updateUser(req,res){
+      const {idUsers} = req.params
+      const {name,email,telefone} = req.body
+      await knex("users").where({idUsers}).update({name,email,telefone})
+      return res.status(200).json("Usuario atualizado")
 
     }
+       async deleteUser(req,res){
+      const {idUsers} = req.params
+      await knex("users").where({idUsers}).delete()
+      return res.status(200).json("Usuário deletado")
+
+    }
+    async listUserById(req,res){
+      const {idUsers} = req.params
+      const user = await knex("users").where({idUsers})
+      return res.status(200).json(user)
+    }
+
 }
 module.exports = UserController
