@@ -6,8 +6,10 @@ const bookRoutes =  Router()
 
 const booksController = new UserController
 
-bookRoutes.post("/books", booksController.createBooks)
+bookRoutes.post("/books/:idBooks", booksController.createBooks)
 bookRoutes.get("/books", booksController.listBooks)
 bookRoutes.get("/books/:idBooks", CheckBookExist,booksController.listBooksById)
 bookRoutes.delete("/books/:idBooks",CheckBookExist,booksController.deleteBooks)
+
+
 module.exports = bookRoutes
