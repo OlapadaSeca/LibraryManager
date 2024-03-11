@@ -7,7 +7,6 @@ exports.up = (knex) => {
   table.string("title").notNullable();
   table.integer("numberOfPages").notNullable();
   table.boolean("isAvaible").defaultTo("false");
-  table.integer("user_id").unsigned().index().references("idUsers").inTable("users")
 
     
      } )
