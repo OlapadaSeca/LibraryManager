@@ -10,5 +10,10 @@ async listBooks(req,res){
     const book =  await knex("books")
     return res.status(200).json(book)
 }
+async listBooksById(req,res){
+    const {idBooks} = req.params
+    const book = await knex("books").where({idBooks})
+    return res.status(200).json(book)
+}
 }
 module.exports = BooksController

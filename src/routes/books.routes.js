@@ -8,4 +8,5 @@ const booksController = new UserController
 
 bookRoutes.post("/books", booksController.createBooks)
 bookRoutes.get("/books", booksController.listBooks)
+bookRoutes.get("/books/:idBooks", booksController.listBooksById)
 module.exports = bookRoutes
