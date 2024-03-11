@@ -1,6 +1,6 @@
 const knex = require("../database/knex");
 
-async function CheckUserExist(req,res,next){
+async function CheckBookExist(req,res,next){
     const{idBooks} = req.params
     const book = await knex("books").where({idBooks})
 
@@ -12,4 +12,4 @@ async function CheckUserExist(req,res,next){
     next()
     
 }
-module.exports = CheckUserExist
+module.exports = CheckBookExist
