@@ -6,7 +6,7 @@ const bookRoutes =  Router()
 
 const booksController = new UserController
 
-bookRoutes.post("/books/:idBooks", booksController.createBooks)
+bookRoutes.post("/books", booksController.createBook)
 bookRoutes.get("/books", booksController.listBooks)
 bookRoutes.get("/books/:idBooks", CheckBookExist,booksController.listBooksById)
 bookRoutes.delete("/books/:idBooks",CheckBookExist,booksController.deleteBooks)

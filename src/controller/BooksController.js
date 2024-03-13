@@ -1,26 +1,14 @@
 const knex = require("../database/knex")
 class BooksController{
-async createBooks(req,res){
-    const {id_bookAr} = req.params
-   
-    const  {author,title,numberOfPages,isAvaible} = req.body
-    
-    const books = {
-        author,
-        title,
-        numberOfPages,
-        isAvaible:true,
-        id_bookAr
-       }
-   
-       await knex("books").insert({
-           author: books.author,
-           title: books.title,
-           isAvaible: books.isAvaible, 
-           id_bookAr: books.id_bookAr
-       })
-       return res.status(201).json("Livro adicionado com sucesso")
-   }
+    async createBook(req, res){
+        const {
+            author, 
+            title,  
+            numberOfPages} = req.body
+        await knex("books").insert({author,title,numberOfPages})
+
+        return res.status(201).json("Livro criado com sucesso")
+    }
 async listBooks(req,res){
     const book =  await knex("books")
     return res.status(200).json(book)

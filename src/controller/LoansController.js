@@ -18,7 +18,7 @@ class LoansController{
         }
 
         await knex("storegedbooks").insert({id_users, id_book})
-        await knex("books").where({idBooks: id_book}).update({isAvailable: false})
+        await knex("books").where({idBooks: id_book}).update({isAvaible: false})
 
         return res.status(200).json("Empréstimo realizado com sucesso!")
     }
@@ -61,7 +61,7 @@ class LoansController{
         const bookId = loan.id_book
 
         if(bookId == id_book){
-            await knex("books").where({idBook: id_book}).update({isAvailable: true})
+            await knex("books").where({idBooks: id_book}).update({isAvaible: true})
             return res.status(200).json("Livro devolvido com sucesso!")
         }
 
