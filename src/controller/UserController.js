@@ -29,6 +29,7 @@ class UserController {
       const user = await knex("users").where({idUsers})
       return res.status(200).json(user)
     }
+    
 
 }
 module.exports = UserController

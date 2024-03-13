@@ -4,10 +4,10 @@ class LoansController{
 
 
     async borrowBooks(req, res){
-        const {user_id, book_id} = req.params
+        const {id_users, id_book} = req.params
 
-        const book = await knex("books").where({idBook: book_id}).first()
-        const user = await knex("users").where({idUser: user_id}).first()
+        const book = await knex("books").where({idBooks: id_book}).first()
+        const user = await knex("users").where({idUsers: id_users}).first()
 
         if(!book){
             return res.status(400).json("Livro não encontrado!")
@@ -17,37 +17,37 @@ class LoansController{
             return res.status(400).json("Usuário não encontrado!")
         }
 
-        await knex("loans").insert({user_id, book_id})
-        await knex("books").where({idBook: book_id}).update({isAvailable: false})
+        await knex("storegedbooks").insert({id_users, id_book})
+        await knex("books").where({idBooks: id_book}).update({isAvailable: false})
 
         return res.status(200).json("Empréstimo realizado com sucesso!")
     }
 
     async listBorrowedBook(req, res) {
-        const {user_id} = req.params
+        const {id_users} = req.params
 
-        const loans = await knex("loans")
-        .where({user_id})
-        .innerJoin("books", "books.idBook", "loans.book_id")
-        .select("books.author", "books.title", "books.category", "books.pages") 
+        const loans = await knex("storegedbooks")
+        .where({id_users})
+        .innerJoin("books", "books.idBooks", "storegedbooks.id_book")
+        .select("books.author", "books.title", "books.numberOfPages") 
 
         return res.status(200).json(loans)
     }
 
     async totalBorrowedBooks(req, res) {
-       const {user_id} = req.params
+       const {id_users} = req.params
 
-       const [total] = await knex("loans").where({user_id}).count({books: "book_id"})
+       const [total] = await knex("storegedbooks").where({id_users}).count({books: "id_book"})
        
        return res.status(200).json(total)
     }
 
 
     async returnBorrowedBooks(req,res){
-        const {user_id, book_id} = req.params
+        const {id_users, id_book} = req.params
 
-        const book = await knex("books").where({idBook: book_id}).first()
-        const user = await knex("users").where({idUser: user_id}).first()
+        const book = await knex("books").where({idBooks: id_book}).first()
+        const user = await knex("users").where({idUsers: id_users}).first()
 
         if(!book){
             return res.status(400).json("Livro não encontrado!")
@@ -57,11 +57,11 @@ class LoansController{
             return res.status(400).json("Usuário não encontrado!")
         }
 
-        const [loan] = await knex("loans").where({user_id})
-        const bookId = loan.book_id
+        const [loan] = await knex("storegedbooks").where({id_users})
+        const bookId = loan.id_book
 
-        if(bookId == book_id){
-            await knex("books").where({idBook: book_id}).update({isAvailable: true})
+        if(bookId == id_book){
+            await knex("books").where({idBook: id_book}).update({isAvailable: true})
             return res.status(200).json("Livro devolvido com sucesso!")
         }
 
